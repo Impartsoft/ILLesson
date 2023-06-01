@@ -33,6 +33,6 @@ namespace ILLesson
         EnumBuilder myEnum = moduleBuilder.DefineEnum("EnumeratedTypes.MyEnum",
                                  TypeAttributes.Public, typeof(int));
 
-        var a =  AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Name"), AssemblyBuilderAccess.Save)
+        var a = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("Name"), AssemblyBuilderAccess.Save);
     }
 }
