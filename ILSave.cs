@@ -10,13 +10,25 @@ namespace ILLesson
 {
     internal class ILSave
     {
+        public static void Save(MethodInfo method)
+        {
+            var assembly = Assembly.GetAssembly(t);
+            var generator = new Lokad.ILPack.AssemblyGenerator();
+
+            // for ad-hoc serialization
+            //var bytes = generator.GenerateAssemblyBytes(assembly);
+
+            // direct serialization to disk
+            generator.GenerateAssembly(assembly, "/path/to/file");
+        }
+
         public static void Save(Type t)
         {
             var assembly = Assembly.GetAssembly(t);
             var generator = new Lokad.ILPack.AssemblyGenerator();
 
             // for ad-hoc serialization
-            var bytes = generator.GenerateAssemblyBytes(assembly);
+            //var bytes = generator.GenerateAssemblyBytes(assembly);
 
             // direct serialization to disk
             generator.GenerateAssembly(assembly, "/path/to/file");
