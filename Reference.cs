@@ -6,5 +6,10 @@
         {
             Console.WriteLine("HelloWorld");
         }
+
+        public string Replace(string value)
+        {
+            return value.Replace("\"", "\\\"");
+        }
     }
 }
