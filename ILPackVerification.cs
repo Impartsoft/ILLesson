@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Metadata;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace ILLesson
 {
-    internal class ILSave
+    internal class ILPackVerification
     {
-        public static void Save(MethodInfo method)
+        public static void Save(MethodInfo method, Action<ILGenerator> actionIlGenerator)
         {
             var assembly = Assembly.GetAssembly(t);
             var generator = new Lokad.ILPack.AssemblyGenerator();
