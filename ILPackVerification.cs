@@ -1,38 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection.Metadata;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Reflection.Emit;
 
 namespace ILLesson
 {
-    internal class ILPackVerification
+    public class ILPackVerification
     {
-        public static void Save(MethodInfo method, Action<ILGenerator> actionIlGenerator)
+        public static ModuleBuilder Builder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("ILTest.Dynamic"), AssemblyBuilderAccess.Run).DefineDynamicModule("TestDynamicModule");
+        public static void Save(DynamicMethod method, Action<ILGenerator> setIL)
         {
-            var assembly = Assembly.GetAssembly(t);
-            var generator = new Lokad.ILPack.AssemblyGenerator();
+            var type = Builder.DefineType("ILPackVerificationClass", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed);
+            var newMethod = type.DefineMethod(method.Name, method.Attributes, method.ReturnType, method.GetParameters().Select(v => v.ParameterType).ToArray());
+            setIL(newMethod.GetILGenerator());
+            Console.WriteLine("方法：" + method.Name + "开始保存...");
 
-            // for ad-hoc serialization
-            //var bytes = generator.GenerateAssemblyBytes(assembly);
-
-            // direct serialization to disk
-            generator.GenerateAssembly(assembly, "/path/to/file");
+            Save(type.CreateType());
         }
-
-        public static void Save(Type t)
+        public static void Save(Type type)
         {
-            var assembly = Assembly.GetAssembly(t);
+            var assembly = Assembly.GetAssembly(type);
+            Console.WriteLine("类：" + type.Name + "开始保存...");
+
+            Save(assembly);
+        }
+        public static void Save(Assembly dynamicAssembly)
+        {
             var generator = new Lokad.ILPack.AssemblyGenerator();
 
-            // for ad-hoc serialization
-            //var bytes = generator.GenerateAssemblyBytes(assembly);
-
-            // direct serialization to disk
-            generator.GenerateAssembly(assembly, "/path/to/file");
+            generator.GenerateAssembly(dynamicAssembly, "/dils.dll");
+            Console.WriteLine("DLL输出成功！");
         }
     }
 }
