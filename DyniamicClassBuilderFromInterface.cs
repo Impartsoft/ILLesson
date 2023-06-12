@@ -21,7 +21,7 @@ namespace ILLesson
                 newClass.AddInterfaceImplementation(typeof(IHelloWrold));
                 var newMethod = newClass.DefineMethod(nameof(IHelloWrold.SayHelloWorld), MethodAttributes.Public | MethodAttributes.Virtual, typeof(void), Type.EmptyTypes);
                 CreateHelloWorldIL(newMethod.GetILGenerator());
-                var newInstance = (IHelloWrold)Activator.CreateInstance(newClass.CreateType()) ?? new object();
+                var newInstance = (IHelloWrold)Activator.CreateInstance(newClass.CreateType());
                 newInstance.SayHelloWorld();
             }
 
