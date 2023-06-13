@@ -15,6 +15,7 @@ namespace ILLesson
 
             Save(type.CreateType());
         }
+
         public static void Save(Type type)
         {
             var assembly = Assembly.GetAssembly(type);
@@ -22,6 +23,7 @@ namespace ILLesson
 
             Save(assembly);
         }
+
         public static void Save(Assembly dynamicAssembly)
         {
             var generator = new Lokad.ILPack.AssemblyGenerator();
