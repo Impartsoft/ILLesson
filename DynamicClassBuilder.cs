@@ -13,6 +13,7 @@
 //        https://github.com/dotnet/runtime/issues/15704
 //     * 
 //     */
+//     .net framework提供保存程序集方法
 //    internal class DynamicClassBuilder
 //    {
 //        // Get the current application domain for the current thread
