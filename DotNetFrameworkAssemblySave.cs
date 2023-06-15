@@ -14,7 +14,7 @@
 //     * 
 //     */
 //     .net framework提供保存程序集方法
-//    internal class DynamicClassBuilder
+//    internal class DotNetFrameworkAssemblySave
 //    {
 //        // Get the current application domain for the current thread
 //        AppDomain currentDomain = AppDomain.CurrentDomain;
