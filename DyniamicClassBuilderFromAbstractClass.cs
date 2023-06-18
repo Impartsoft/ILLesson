@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 
 namespace ILLesson
 {
-    internal class DyniamicClassBuilderFromSuperClass
+    internal class DyniamicClassBuilderFromAbstractClass
     {
         public abstract class HelloWrold
         {
