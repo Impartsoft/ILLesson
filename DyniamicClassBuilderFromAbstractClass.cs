@@ -14,7 +14,8 @@ namespace ILLesson
         {
             var parentType = typeof(HelloWrold);
 
-           
+            var newClass = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("ILTest.Dynamic"), AssemblyBuilderAccess.Run).DefineDynamicModule("TestDynamicModule").DefineType("ILPackVerificationClass", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed, parentType);
+
         }
 
         private static void CreateHelloWorldIL(ILGenerator il)
