@@ -13,9 +13,17 @@ namespace ILLesson
         public static void CreateHelloWorldClass()
         {
             var parentType = typeof(HelloWrold);
+            var newClass = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("ILTest.Dynamic"), AssemblyBuilderAccess.Run).DefineDynamicModule("TestDynamicModule").DefineType("SubILTest"
+                    , TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed, parentType);
 
-            var newClass = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName("ILTest.Dynamic"), AssemblyBuilderAccess.Run).DefineDynamicModule("TestDynamicModule").DefineType("ILPackVerificationClass", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed, parentType);
+            var oldMethod = parentType.GetMethod(nameof(HelloWrold.SayHelloWorld));
+            var newMethod = newClass.DefineMethod(oldMethod.Name, MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.NewSlot | MethodAttributes.Virtual | MethodAttributes.Final, oldMethod.ReturnType
+                    , oldMethod.GetParameters().Select(v => v.ParameterType).ToArray());
 
+            CreateHelloWorldIL(newMethod.GetILGenerator());
+            newClass.DefineMethodOverride(newMethod, oldMethod);
+            var newInstance = (HelloWrold)Activator.CreateInstance(newClass.CreateType());
+            newInstance.SayHelloWorld();
         }
 
         private static void CreateHelloWorldIL(ILGenerator il)
