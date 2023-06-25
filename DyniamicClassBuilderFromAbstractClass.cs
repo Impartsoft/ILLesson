@@ -3,13 +3,13 @@ using System.Reflection.Emit;
 
 namespace ILLesson
 {
+    public abstract class HelloWrold
+    {
+        public abstract void SayHelloWorld();
+    }
+
     internal class DyniamicClassBuilderFromAbstractClass
     {
-        public abstract class HelloWrold
-        {
-            public abstract void SayHelloWorld();
-        }
-
         public static void CreateHelloWorldClass()
         {
             var parentType = typeof(HelloWrold);

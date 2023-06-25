@@ -1,3 +1,3 @@
 ﻿using ILLesson;
 
-DynamicMethodBuilder.CreateEscapeQuotesMethod();
+DyniamicClassBuilderFromAbstractClass.CreateHelloWorldClass();
